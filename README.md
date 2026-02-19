@@ -1,7 +1,5 @@
 # P-L-Datasets
 
-Synthetic datasets for learning modules on covenant/portfolio analysis, churn prediction, and outflow modeling. Designed for workshops, tutorials, and hands-on exercises.
-
 ---
 
 ## Quickstart
