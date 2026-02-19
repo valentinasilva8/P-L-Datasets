@@ -1,0 +1,63 @@
+# P-L-Datasets Registry
+# Each entry describes a versioned dataset in this repository.
+
+datasets:
+  covenant_pl:
+    dataset_id: covenant_pl
+    version: v1.0.0
+    description: >
+      Synthetic covenant/portfolio learning dataset for churn prediction and outflow analysis.
+      Includes customer snapshots, bank transaction summaries, outflows, crypto shadow transactions,
+      settlement data, wallet risk scores, and market conditions.
+    last_updated: "2025-02-18"
+    files:
+      - path: datasets/covenant_pl/v1.0.0/bank_txn_summary_monthly.csv
+        row_count: 119000
+        column_count: 11
+        file_size_bytes: 6628222
+        sha256: 83b9d4d0d2b5265f7149b07741c1fbbbd53a0106b8d738013c46f6c6d904853f
+      - path: datasets/covenant_pl/v1.0.0/customer_snapshot_monthly.csv
+        row_count: 119000
+        column_count: 16
+        file_size_bytes: 11421485
+        sha256: 9e0df7f054e2d7ae03773ed5bdcb24d9d617245b489df183a78811a777622c42
+      - path: datasets/covenant_pl/v1.0.0/customers.csv
+        row_count: 8500
+        column_count: 8
+        file_size_bytes: 516867
+        sha256: e1a729022c6f8824a509588ea7e5994ce675df68b415bd5838fb91ba9bca4749
+      - path: datasets/covenant_pl/v1.0.0/labels.csv
+        row_count: 2805
+        column_count: 3
+        file_size_bytes: 69075
+        sha256: b79a3b532c42517a4073f222b72f90620c1153dbc523704da88a7ab277e2310a
+      - path: datasets/covenant_pl/v1.0.0/market_conditions.csv
+        row_count: 2016
+        column_count: 14
+        file_size_bytes: 212313
+        sha256: 04d33ca5159e92d8ec2532353a7bae5be8d399500c2e317e5bcfd16fbef0a7bc
+      - path: datasets/covenant_pl/v1.0.0/model1_dataset.csv
+        row_count: 65013
+        column_count: 36
+        file_size_bytes: 13395841
+        sha256: feb62f20899031ce91d4e4fe15db500a8d1f79aa2343c4e5738aa757d1dcc2b9
+      - path: datasets/covenant_pl/v1.0.0/outflows.csv
+        row_count: 65778
+        column_count: 6
+        file_size_bytes: 4192579
+        sha256: 67bdbbf36529d471884fcad5dcff4c75ecdcc43e8cffc4f567334846f857b5e0
+      - path: datasets/covenant_pl/v1.0.0/settlement_data.csv
+        row_count: 45000
+        column_count: 11
+        file_size_bytes: 6593247
+        sha256: 3b243010fe0134d474c14b3e1ad4526f37fa1c9f8f852e4cd4e4da31da8c66eb
+      - path: datasets/covenant_pl/v1.0.0/shadow_transactions.csv
+        row_count: 45000
+        column_count: 24
+        file_size_bytes: 12167306
+        sha256: a0ffa7b5369502ed4b0cf838610d9db94ae1cf262075273aed6d94eeaf4d75a6
+      - path: datasets/covenant_pl/v1.0.0/wallet_scores.csv
+        row_count: 12400
+        column_count: 8
+        file_size_bytes: 1019777
+        sha256: 453f90398ea7393b7cffc401ea732ff3e7e8bf619d2ca3f2ecde360694c48e6f

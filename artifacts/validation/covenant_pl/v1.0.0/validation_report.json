@@ -1,0 +1,109 @@
+{
+  "dataset": "covenant_pl",
+  "version": "v1.0.0",
+  "passed": true,
+  "total_errors": 0,
+  "total_warnings": 0,
+  "results": [
+    {
+      "file": "bank_txn_summary_monthly.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "composite_key_unique": true
+      }
+    },
+    {
+      "file": "customer_snapshot_monthly.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "composite_key_unique": true
+      }
+    },
+    {
+      "file": "customers.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    },
+    {
+      "file": "labels.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    },
+    {
+      "file": "market_conditions.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "composite_key_unique": true
+      }
+    },
+    {
+      "file": "model1_dataset.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "composite_key_unique": true
+      }
+    },
+    {
+      "file": "outflows.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    },
+    {
+      "file": "settlement_data.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    },
+    {
+      "file": "shadow_transactions.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    },
+    {
+      "file": "wallet_scores.csv",
+      "errors": [],
+      "warnings": [],
+      "checks": {
+        "file_exists": true,
+        "required_columns": true,
+        "pk_unique": true
+      }
+    }
+  ]
+}

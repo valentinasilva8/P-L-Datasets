@@ -1,0 +1,213 @@
+# Schema for covenant_pl v1.0.0
+# Inferred from actual data. Use for validation.
+
+version: v1.0.0
+dataset_id: covenant_pl
+
+files:
+  bank_txn_summary_monthly.csv:
+    primary_key: null  # composite (customer_id, snapshot_month) - not enforced as single column
+    composite_key: [customer_id, snapshot_month]
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+    columns:
+      customer_id: { dtype: string, required: true, nullable: false }
+      snapshot_month: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      ach_outflow_count: { dtype: int, required: true, nullable: false, min: 0, max: 10 }
+      wire_outflow_count: { dtype: int, required: true, nullable: false, min: 0, max: 6 }
+      external_outflow_count: { dtype: int, required: true, nullable: false, min: 0, max: 13 }
+      ach_outflow_amount_usd: { dtype: float, required: true, nullable: false, min: 0, max: 5000 }
+      wire_outflow_amount_usd: { dtype: float, required: true, nullable: false, min: 0, max: 14000 }
+      external_outflow_amount_usd: { dtype: float, required: true, nullable: false, min: 0, max: 15000 }
+      inbound_transfer_count: { dtype: int, required: true, nullable: false, min: 0, max: 20 }
+      inbound_transfer_amount_usd: { dtype: float, required: true, nullable: false, min: 0, max: 28000 }
+      total_txn_count: { dtype: int, required: true, nullable: false, min: 1, max: 70 }
+
+  customer_snapshot_monthly.csv:
+    primary_key: null
+    composite_key: [customer_id, snapshot_month]
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+    columns:
+      customer_id: { dtype: string, required: true, nullable: false }
+      snapshot_month: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      product_count: { dtype: int, required: true, nullable: false, min: 1, max: 6 }
+      has_checking: { dtype: bool, required: true, nullable: false }
+      has_savings: { dtype: bool, required: true, nullable: false }
+      has_investment: { dtype: bool, required: true, nullable: false }
+      has_mortgage: { dtype: bool, required: true, nullable: false }
+      has_credit_card: { dtype: bool, required: true, nullable: false }
+      total_deposits_usd: { dtype: float, required: true, nullable: false, min: 0, max: 600000 }
+      total_investments_usd: { dtype: float, required: true, nullable: false, min: 0, max: 1500000 }
+      monthly_login_count: { dtype: float, required: true, nullable: false, min: 0, max: 40 }
+      mobile_login_pct: { dtype: float, required: true, nullable: false, min: 0, max: 1 }
+      days_since_last_login: { dtype: int, required: true, nullable: false, min: 0, max: 60 }
+      avg_monthly_transactions: { dtype: float, required: true, nullable: false, min: 0, max: 70 }
+      volatile_equity_flag: { dtype: bool, required: true, nullable: false }
+      relationship_tenure_months: { dtype: int, required: true, nullable: false, min: 0, max: 300 }
+
+  customers.csv:
+    primary_key: customer_id
+    join_keys: []
+    columns:
+      customer_id: { dtype: string, required: true, nullable: false }
+      account_open_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      age_band: { dtype: string, required: true, nullable: false }
+      income_band: { dtype: string, required: true, nullable: false }
+      state: { dtype: string, required: true, nullable: false }
+      segment: { dtype: string, required: true, nullable: false }
+      advisor_assigned: { dtype: bool, required: true, nullable: false }
+      churn_risk_score: { dtype: float, required: true, nullable: false, min: 0, max: 1 }
+
+  labels.csv:
+    primary_key: customer_id
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+    columns:
+      customer_id: { dtype: string, required: true, nullable: false }
+      first_outflow_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      count_outflows_total: { dtype: int, required: true, nullable: false, min: 1, max: 250 }
+
+  market_conditions.csv:
+    primary_key: null
+    composite_key: [timestamp, asset]
+    join_keys: []
+    columns:
+      timestamp: { dtype: datetime, required: true, nullable: false, date_format: "%Y-%m-%d %H:%M:%S" }
+      asset: { dtype: string, required: true, nullable: false }
+      price_usd: { dtype: float, required: true, nullable: false, min: 0, max: 100000 }
+      price_change_1h_pct: { dtype: float, required: true, nullable: false }
+      price_change_24h_pct: { dtype: float, required: true, nullable: false }
+      volatility_1h_ann: { dtype: float, required: true, nullable: false }
+      volatility_24h_ann: { dtype: float, required: true, nullable: false }
+      bid_ask_spread_bps: { dtype: float, required: true, nullable: false }
+      order_book_depth_usd: { dtype: float, required: true, nullable: false }
+      liquidity_score: { dtype: float, required: true, nullable: false }
+      avg_confirmation_time_min: { dtype: float, required: true, nullable: false }
+      mempool_pending_tx: { dtype: float, required: false, nullable: true }
+      gas_price_gwei: { dtype: float, required: false, nullable: true }
+      regime: { dtype: string, required: true, nullable: false }
+
+  model1_dataset.csv:
+    primary_key: null
+    composite_key: [customer_id, snapshot_month]
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+    columns:
+      customer_id: { dtype: string, required: true, nullable: false }
+      snapshot_month: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      product_count: { dtype: int, required: true, nullable: false, min: 1, max: 6 }
+      has_checking: { dtype: bool, required: true, nullable: false }
+      has_savings: { dtype: bool, required: true, nullable: false }
+      has_investment: { dtype: bool, required: true, nullable: false }
+      has_mortgage: { dtype: bool, required: true, nullable: false }
+      has_credit_card: { dtype: bool, required: true, nullable: false }
+      total_deposits_usd: { dtype: float, required: true, nullable: false }
+      total_investments_usd: { dtype: float, required: true, nullable: false }
+      monthly_login_count: { dtype: float, required: true, nullable: false }
+      mobile_login_pct: { dtype: float, required: true, nullable: false }
+      days_since_last_login: { dtype: int, required: true, nullable: false }
+      avg_monthly_transactions: { dtype: float, required: true, nullable: false }
+      volatile_equity_flag: { dtype: bool, required: true, nullable: false }
+      relationship_tenure_months: { dtype: int, required: true, nullable: false }
+      ach_outflow_count: { dtype: int, required: true, nullable: false }
+      wire_outflow_count: { dtype: int, required: true, nullable: false }
+      external_outflow_count: { dtype: int, required: true, nullable: false }
+      ach_outflow_amount_usd: { dtype: float, required: true, nullable: false }
+      wire_outflow_amount_usd: { dtype: float, required: true, nullable: false }
+      external_outflow_amount_usd: { dtype: float, required: true, nullable: false }
+      inbound_transfer_count: { dtype: int, required: true, nullable: false }
+      inbound_transfer_amount_usd: { dtype: float, required: true, nullable: false }
+      total_txn_count: { dtype: int, required: true, nullable: false }
+      account_open_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      age_band: { dtype: string, required: true, nullable: false }
+      income_band: { dtype: string, required: true, nullable: false }
+      state: { dtype: string, required: true, nullable: false }
+      segment: { dtype: string, required: true, nullable: false }
+      advisor_assigned: { dtype: bool, required: true, nullable: false }
+      churn_risk_score: { dtype: float, required: true, nullable: false }
+      first_outflow_date: { dtype: date, required: false, nullable: true, date_format: "%Y-%m-%d" }
+      T: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      T_plus_h: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      y: { dtype: int, required: true, nullable: false, min: 0, max: 1 }
+
+  outflows.csv:
+    primary_key: outflow_id
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+    columns:
+      outflow_id: { dtype: string, required: true, nullable: false }
+      customer_id: { dtype: string, required: true, nullable: false }
+      transaction_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      amount_usd: { dtype: float, required: true, nullable: false, min: 0, max: 60000 }
+      descriptor: { dtype: string, required: true, nullable: false }
+      transaction_type: { dtype: string, required: true, nullable: false }
+
+  settlement_data.csv:
+    primary_key: transaction_id
+    join_keys:
+      - column: transaction_id
+        references: shadow_transactions.transaction_id
+    columns:
+      transaction_id: { dtype: string, required: true, nullable: false }
+      asset_type: { dtype: string, required: true, nullable: false }
+      initiated_timestamp: { dtype: datetime, required: true, nullable: false, date_format: "%Y-%m-%d %H:%M:%S" }
+      expected_confirmation_min: { dtype: float, required: true, nullable: false }
+      actual_confirmation_min: { dtype: float, required: true, nullable: false }
+      confirmations_required: { dtype: int, required: true, nullable: false }
+      confirmations_received: { dtype: int, required: true, nullable: false }
+      final_settlement_timestamp: { dtype: datetime, required: true, nullable: false, date_format: "%Y-%m-%d %H:%M:%S" }
+      settlement_status: { dtype: string, required: true, nullable: false }
+      delay_flag: { dtype: bool, required: true, nullable: false }
+      delay_reason: { dtype: string, required: false, nullable: true }
+
+  shadow_transactions.csv:
+    primary_key: transaction_id
+    join_keys:
+      - column: customer_id
+        references: customers.customer_id
+      - column: dest_wallet
+        references: wallet_scores.wallet_address
+    columns:
+      transaction_id: { dtype: string, required: true, nullable: false }
+      customer_id: { dtype: string, required: true, nullable: false }
+      timestamp: { dtype: datetime, required: true, nullable: false, date_format: "%Y-%m-%d %H:%M:%S" }
+      asset_type: { dtype: string, required: true, nullable: false }
+      direction: { dtype: string, required: true, nullable: false }
+      amount_usd: { dtype: float, required: true, nullable: false }
+      quantity: { dtype: float, required: true, nullable: false }
+      execution_price: { dtype: float, required: true, nullable: false }
+      base_spread_bps: { dtype: int, required: true, nullable: false }
+      dynamic_spread_bps: { dtype: float, required: true, nullable: false }
+      total_spread_bps: { dtype: float, required: true, nullable: false }
+      dest_wallet: { dtype: string, required: true, nullable: false }
+      device_fingerprint: { dtype: string, required: true, nullable: false }
+      device_type: { dtype: string, required: true, nullable: false }
+      is_new_device: { dtype: bool, required: true, nullable: false }
+      session_duration_sec: { dtype: int, required: true, nullable: false }
+      ip_country: { dtype: string, required: true, nullable: false }
+      model_score: { dtype: float, required: true, nullable: false }
+      model_decision: { dtype: string, required: true, nullable: false }
+      volatility_regime: { dtype: string, required: true, nullable: false }
+      fraud_label: { dtype: string, required: false, nullable: true }
+      label_date: { dtype: date, required: false, nullable: true, date_format: "%Y-%m-%d" }
+      fraud_type: { dtype: string, required: false, nullable: true }
+      loss_amount_usd: { dtype: float, required: false, nullable: true }
+
+  wallet_scores.csv:
+    primary_key: wallet_address
+    join_keys: []
+    columns:
+      wallet_address: { dtype: string, required: true, nullable: false }
+      risk_score: { dtype: int, required: true, nullable: false, min: 0, max: 100 }
+      risk_category: { dtype: string, required: true, nullable: false }
+      first_seen_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
+      total_transaction_count: { dtype: int, required: true, nullable: false }
+      known_entity: { dtype: string, required: false, nullable: true }
+      sanctioned_flag: { dtype: bool, required: true, nullable: false }
+      score_date: { dtype: date, required: true, nullable: false, date_format: "%Y-%m-%d" }
